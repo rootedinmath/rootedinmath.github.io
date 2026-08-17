@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rooted in Math — Free Summer Math Sessions</title>
+<meta name="description" content="A free summer math program for kids entering grades 3-5, taught by three sisters.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23e3b23c'>%E2%88%9A</text></svg>">
+<style>
+/* =====================================================================
+   Rooted in Math — all styling lives here.
+   Colors are set once below; change one value and it updates everywhere.
+
+   The page is deliberately light and warm so the dark green poster
+   stands out against it instead of blending in.
+   ===================================================================== */
+
+:root {
+  --paper:      #faf6ee;   /* page background */
+  --paper-alt:  #f2eade;   /* alternating band */
+  --card:       #ffffff;   /* cards and panels */
+  --line:       #e2d8c6;   /* borders */
+
+  --green:      #0d3b33;   /* headings, brand, dark panels */
+  --green-soft: #2c6b5f;   /* secondary green */
+  --gold:       #e3b23c;   /* fills: buttons, pills */
+  --gold-deep:  #8a6410;   /* gold used as small text on light */
+
+  --ink:        #2b3330;   /* body text */
+  --ink-dim:    #66716d;   /* quieter text */
+  --cream:      #f2ede3;   /* text on dark panels */
+  --cream-dim:  #c2d4cd;   /* quieter text on dark panels */
+
+  --wrap: 960px;
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+.wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+.narrow { max-width: 660px; }
+.center { text-align: center; }
+
+.skip-link {
+  position: absolute; left: -9999px;
+  background: var(--green); color: var(--cream);
+  padding: 10px 16px; border-radius: 0 0 8px 0; font-weight: 700; z-index: 100;
+}
+.skip-link:focus { left: 0; top: 0; }
+
+/* ---------- Type ---------- */
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  color: var(--green);
+  line-height: 1.2;
+  margin: 0 0 .6em;
+  font-weight: 400;
+}
+
+h1 { font-size: clamp(2.6rem, 8vw, 4.2rem); letter-spacing: -.01em; }
+h2 { font-size: clamp(1.55rem, 4vw, 2.1rem); }
+h3 { font-size: 1.15rem; color: var(--green-soft); }
+
+p { margin: 0 0 1.2em; }
+.lead { font-size: 1.1rem; }
+.note { color: var(--ink-dim); font-size: .95rem; }
+.quiet { opacity: .75; }
+
+.radical { font-family: var(--font-display); color: var(--gold-deep); margin-right: .12em; }
+
+a { color: var(--green-soft); }
+a:hover { color: var(--green); }
+
+:focus-visible { outline: 3px solid var(--gold-deep); outline-offset: 3px; }
+
+/* ---------- Header ---------- */
+
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(250, 246, 238, .94);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(6px);
+}
+
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; min-height: 62px; flex-wrap: wrap; padding: 8px 0;
+}
+
+.brand {
+  font-family: var(--font-display); font-size: 1.2rem;
+  color: var(--green); text-decoration: none; white-space: nowrap;
+}
+
+.site-header nav { display: flex; gap: 4px; flex-wrap: wrap; }
+
+.site-header nav a {
+  color: var(--ink-dim); text-decoration: none; font-size: .92rem;
+  padding: 7px 12px; border-radius: 999px;
+}
+.site-header nav a:hover { color: var(--green); background: var(--paper-alt); }
+.site-header nav a.nav-cta { background: var(--green); color: var(--cream); font-weight: 700; }
+.site-header nav a.nav-cta:hover { background: var(--green-soft); color: var(--cream); }
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative; text-align: center; overflow: hidden;
+  padding: clamp(60px, 11vw, 110px) 0 clamp(50px, 9vw, 90px);
+}
+
+/* Faint tiled math symbols, drawn inline so there is no image file to lose. */
+.hero::before {
+  content: ""; position: absolute; inset: 0; opacity: .07; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='190' height='190' viewBox='0 0 190 190'%3E%3Ctext x='12' y='34' font-family='Georgia,serif' font-size='30' fill='%230d3b33'%3E%E2%88%9A%3C/text%3E%3Ctext x='84' y='58' font-family='Georgia,serif' font-size='26' fill='%230d3b33'%3E%CF%80%3C/text%3E%3Ctext x='140' y='30' font-family='Georgia,serif' font-size='28' fill='%230d3b33'%3E%2B%3C/text%3E%3Ctext x='28' y='96' font-family='Georgia,serif' font-size='26' fill='%230d3b33'%3E%C3%97%3C/text%3E%3Ctext x='104' y='118' font-family='Georgia,serif' font-size='30' fill='%230d3b33'%3E%E2%88%91%3C/text%3E%3Ctext x='156' y='96' font-family='Georgia,serif' font-size='26' fill='%230d3b33'%3E%3D%3C/text%3E%3Ctext x='16' y='156' font-family='Georgia,serif' font-size='26' fill='%230d3b33'%3E%C3%B7%3C/text%3E%3Ctext x='72' y='176' font-family='Georgia,serif' font-size='24' fill='%230d3b33'%3E%25%3C/text%3E%3Ctext x='134' y='158' font-family='Georgia,serif' font-size='28' fill='%230d3b33'%3E%E2%88%9E%3C/text%3E%3C/svg%3E");
+}
+
+.hero-inner { position: relative; }
+
+.eyebrow {
+  color: var(--gold-deep); letter-spacing: .22em; text-transform: uppercase;
+  font-size: .74rem; font-weight: 700; margin-bottom: 1.2em;
+}
+
+.hero h1 { margin-bottom: .25em; }
+
+.tagline {
+  font-family: var(--font-display); font-style: italic; color: var(--green-soft);
+  font-size: clamp(1.05rem, 2.6vw, 1.3rem); margin-bottom: 1.8em;
+}
+
+.badge {
+  display: inline-block; border: 1px solid var(--line);
+  background: var(--card); color: var(--ink);
+  border-radius: 999px; padding: 8px 20px; font-size: .85rem;
+  letter-spacing: .06em; text-transform: uppercase; margin: 0;
+}
+
+/* ---------- Sections ---------- */
+
+.section { padding: clamp(50px, 8vw, 84px) 0; }
+.section.alt { background: var(--paper-alt); }
+.section, .hero { scroll-margin-top: 80px; }
+
+.section-intro { max-width: 620px; margin: 0 auto 2.2em; text-align: center; }
+
+.center-cta { text-align: center; margin: 2em 0 0; }
+
+hr.rule {
+  border: 0; border-top: 2px solid var(--gold);
+  max-width: 70px; margin: 0 auto 2.4em;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-block; background: var(--gold); color: var(--green);
+  font-weight: 700; text-decoration: none; padding: 14px 28px;
+  border-radius: 999px; border: 2px solid var(--gold);
+}
+.btn:hover { background: #d5a32c; border-color: #d5a32c; color: var(--green); }
+.btn-lg { font-size: 1.05rem; padding: 16px 34px; }
+
+/* ---------- Tutor cards ---------- */
+
+.cards {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;
+}
+
+.card {
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: 14px; padding: 28px 26px;
+  box-shadow: 0 1px 3px rgba(13, 59, 51, .06);
+}
+.card p:last-child { margin-bottom: 0; }
+
+.card-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: var(--green); color: var(--gold);
+  font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 16px;
+}
+
+.card h3 { margin-bottom: .1em; color: var(--green); font-size: 1.3rem; }
+
+.card-role {
+  color: var(--ink-dim); font-size: .8rem; text-transform: uppercase;
+  letter-spacing: .12em; margin-bottom: 1.1em;
+}
+
+/* ---------- Summer 2026 ---------- */
+
+.summer { display: grid; grid-template-columns: 400px 1fr; gap: 44px; align-items: start; }
+
+.poster figure { margin: 0; }
+
+.poster a { display: block; border-radius: 12px; }
+
+.poster img {
+  display: block; width: 100%; height: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 22px rgba(13, 59, 51, .22);
+}
+
+.poster a:hover img { box-shadow: 0 8px 28px rgba(13, 59, 51, .34); }
+
+.poster figcaption { font-size: .85rem; color: var(--ink-dim); text-align: center; margin-top: 14px; }
+
+.poster-missing {
+  padding: 40px 20px; text-align: center; color: var(--ink-dim); font-size: .9rem;
+  border: 1px dashed var(--line); border-radius: 12px; background: var(--card);
+}
+
+.facts { list-style: none; margin: 0 0 1.6em; padding: 0; }
+
+.facts li {
+  display: flex; gap: 14px; padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+}
+.facts li:last-child { border-bottom: none; }
+
+.facts .k {
+  flex: 0 0 108px; color: var(--gold-deep); font-size: .82rem;
+  letter-spacing: .1em; text-transform: uppercase; padding-top: 3px; font-weight: 700;
+}
+
+.topics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 18px; margin-top: 1.6em; }
+
+.topic-col {
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: 12px; padding: 18px 20px;
+  box-shadow: 0 1px 3px rgba(13, 59, 51, .06);
+}
+
+.grade-pill {
+  display: inline-block; background: var(--gold); color: var(--green);
+  font-weight: 700; font-size: .76rem; letter-spacing: .06em; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 999px; margin-bottom: 12px;
+}
+
+.topic-col ul { margin: 0; padding-left: 1.15em; font-size: .93rem; }
+.topic-col li { margin-bottom: .35em; }
+.topic-col li:last-child { margin-bottom: 0; }
+
+/* ---------- Program points ---------- */
+
+.checklist { list-style: none; margin: 0; padding: 0; }
+.checklist li { position: relative; padding-left: 32px; margin-bottom: 1.1em; }
+.checklist li:last-child { margin-bottom: 0; }
+.checklist li::before {
+  content: "\002713"; position: absolute; left: 0; top: -1px;
+  color: var(--gold-deep); font-size: 1.1rem; font-weight: 700;
+}
+.checklist strong { color: var(--green); font-weight: 700; }
+
+/* ---------- Feedback ----------
+   The one dark block on the page, so the call to action stands out. */
+
+.panel {
+  background: var(--green); color: var(--cream);
+  border-radius: 20px; padding: clamp(28px, 5vw, 48px); text-align: center;
+}
+.panel h2 { color: var(--gold); }
+.panel .lead { max-width: 540px; margin-left: auto; margin-right: auto; }
+.panel .note { color: var(--cream-dim); }
+
+/* ---------- Footer ---------- */
+
+.site-footer { background: var(--green); color: var(--cream); padding: 46px 0 54px; }
+.site-footer .radical { color: var(--gold); }
+.footer-mark { font-family: var(--font-display); font-size: 1.3rem; color: var(--cream); margin-bottom: .7em; }
+.site-footer .note { color: var(--cream-dim); margin-bottom: .5em; }
+.site-footer a { color: var(--gold); }
+.site-footer a:hover { color: var(--gold); text-decoration: underline; }
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 900px) {
+  .summer { grid-template-columns: 1fr; gap: 30px; }
+  .poster { max-width: 400px; margin: 0 auto; }
+}
+
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .header-inner { justify-content: center; }
+  .brand { width: 100%; text-align: center; }
+  .site-header nav { justify-content: center; }
+  .facts li { flex-direction: column; gap: 2px; }
+  .facts .k { flex: none; }
+  .btn-lg { width: 100%; font-size: 1rem; padding: 15px 18px; }
+  /* The header wraps to two rows on narrow screens, so anchor links need
+     more clearance to avoid landing under it. */
+  .section, .hero { scroll-margin-top: 158px; }
+}
+
+/* ---------- Printing ---------- */
+
+@media print {
+  .site-header, .skip-link { display: none !important; }
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .section.alt { background: #fff !important; }
+  .panel, .site-footer { background: #fff !important; color: #000 !important; }
+  .panel h2, .site-footer .radical, .site-footer a { color: #0d3b33 !important; }
+  .panel .note, .site-footer .note { color: #333 !important; }
+  .card, .topic-col { box-shadow: none !important; border-color: #999 !important; }
+  .poster img { box-shadow: none !important; border: 1px solid #999; }
+  .grade-pill { background: #fff !important; border: 1px solid #666; }
+  a { color: #000 !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- =====================================================================
+     ROOTED IN MATH — one simple page.
+
+     To change any words, find them below and type over them. Lines that
+     start with  <!--  are notes to you and never appear on the website.
+     Places that need your attention are marked  CONFIRM  or  TO DO.
+     ===================================================================== -->
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top"><span class="radical">&radic;</span>Rooted in Math</a>
+    <nav aria-label="Sections">
+      <a href="#program">The Program</a>
+      <a href="#tutors">Tutors</a>
+      <a href="#summer-2026">Summer 2026</a>
+      <a href="#summer-2027">2027</a>
+      <a href="#feedback" class="nav-cta">Feedback</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ---------- HERO ---------- -->
+<section class="hero" id="top">
+  <div class="wrap hero-inner">
+    <p class="eyebrow">Summer Math Sessions</p>
+    <h1><span class="radical">&radic;</span>Rooted in Math</h1>
+    <p class="tagline">Building strong roots, one number at a time</p>
+    <!-- NEXT SUMMER: change to "Summer 2027 &middot; Now Enrolling" -->
+    <p class="badge">Summer 2026 &middot; Complete</p>
+  </div>
+</section>
+
+<!-- ---------- ABOUT THE PROGRAM ---------- -->
+<section class="section" id="program">
+  <div class="wrap narrow">
+    <h2 class="center">About the program</h2>
+    <hr class="rule">
+    <p class="lead center">
+      Free summer math practice for neighborhood kids, taught by three sisters
+      &mdash; Reeha, Aashmi, and Aashna &mdash; who love math and wanted to
+      share it.
+    </p>
+    <ul class="checklist" style="margin-top:2.4em">
+      <li><strong>Small groups, sorted by grade.</strong> Kids work with others at the same level, so nobody feels lost or held back.</li>
+      <li><strong>Short and regular.</strong> Two to three sessions a week, 45 minutes to an hour each.</li>
+      <li><strong>Practice over lecture.</strong> Mostly working problems together, with help whenever someone gets stuck.</li>
+      <li><strong>Calm and friendly.</strong> Because the sessions are led by students, we keep them small and focused.</li>
+      <li><strong>Always free.</strong> There has never been a charge to any family, for anything.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ---------- MEET THE TUTORS ---------- -->
+<section class="section alt" id="tutors">
+  <div class="wrap">
+    <h2 class="center">Meet the tutors</h2>
+    <hr class="rule">
+    <p class="section-intro note">
+      Three sisters who love math and wanted to share it with the neighborhood.
+    </p>
+    <ul class="cards">
+      <li class="card">
+        <span class="card-mark">&radic;</span>
+        <h3>Reeha</h3>
+        <p class="card-role">Founder &amp; lead tutor</p>
+        <p>
+          Reeha has completed Algebra 2. She started the program, planned the
+          sessions, and taught alongside her younger sisters.
+        </p>
+      </li>
+      <li class="card">
+        <span class="card-mark">&pi;</span>
+        <h3>Aashmi &amp; Aashna</h3>
+        <p class="card-role">Tutors</p>
+        <p>
+          Reeha's younger twin sisters. Both finished 6th grade in PWCS's
+          Double-Extended Math program &mdash; two full grade levels ahead
+          &mdash; and taught alongside her.
+        </p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ---------- SUMMER 2026 ---------- -->
+<section class="section" id="summer-2026">
+  <div class="wrap">
+    <h2 class="center">Summer 2026</h2>
+    <hr class="rule">
+    <div class="summer">
+
+      <div class="poster">
+        <figure>
+          <!-- The filename here must match the file in the "posters" folder
+               exactly, including the .jpg or .png ending. It appears twice
+               below - change both. -->
+          <a href="posters/2026-poster.jpg" target="_blank" rel="noopener">
+            <img src="posters/2026-poster.jpg"
+                 alt="Rooted in Math poster for Summer 2026"
+                 onerror="this.parentNode.outerHTML='&lt;div class=&quot;poster-missing&quot;&gt;Poster image has not been added yet.&lt;/div&gt;'">
+          </a>
+          <figcaption>The poster we shared with our neighborhood &mdash;
+            <a href="posters/2026-poster.jpg" target="_blank" rel="noopener">view full size</a></figcaption>
+        </figure>
+      </div>
+
+      <div>
+        <ul class="facts">
+          <!-- CONFIRM: the real first and last session dates. -->
+          <li><span class="k">When</span><span>Late June &ndash; August 2026</span></li>
+          <li><span class="k">Who</span><span>5 kids entering grades 3, 4, and 5</span></li>
+          <li><span class="k">Format</span><span>One-to-one, 2 sessions a week, 1 hour each</span></li>
+          <li><span class="k">Schedule</span><span>Arranged around each family's availability</span></li>
+          <li><span class="k">Cost</span><span>Free</span></li>
+          <li><span class="k">Signups</span>
+            <span><a href="https://forms.gle/HkYuzh3wuPjovAmh6" target="_blank" rel="noopener">The 2026 signup form</a> &mdash; now closed</span></li>
+        </ul>
+
+        <p class="note" style="margin-bottom:0">
+          We planned small groups, as the poster says. Being our first summer,
+          five children joined &mdash; few enough that we could give each one
+          their own sessions and fit the times around their family's schedule.
+          With more kids we would run small groups as intended.
+        </p>
+      </div>
+
+    </div>
+
+    <h3 class="center" style="margin-top:2.8em">What we covered</h3>
+    <!-- CONFIRM: replace these with what was actually taught. -->
+    <div class="topics-grid">
+      <div class="topic-col">
+        <span class="grade-pill">Rising 3rd</span>
+        <ul>
+          <li>Addition &amp; subtraction fluency</li>
+          <li>Multiplication facts</li>
+          <li>Place value to 1,000</li>
+          <li>Intro to fractions</li>
+        </ul>
+      </div>
+      <div class="topic-col">
+        <span class="grade-pill">Rising 4th</span>
+        <ul>
+          <li>Multiplication &amp; division facts</li>
+          <li>Multi-digit multiplication</li>
+          <li>Comparing fractions</li>
+          <li>Word problems</li>
+        </ul>
+      </div>
+      <div class="topic-col">
+        <span class="grade-pill">Rising 5th</span>
+        <ul>
+          <li>Long division</li>
+          <li>Adding &amp; subtracting fractions</li>
+          <li>Decimals &amp; place value</li>
+          <li>Multi-step word problems</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- SUMMER 2027 ---------- -->
+<section class="section alt" id="summer-2027">
+  <div class="wrap narrow center">
+    <h2>Coming back in Summer 2027</h2>
+    <hr class="rule">
+    <p class="lead">
+      The girls plan to run Rooted in Math again next summer, with everything
+      they learned this year built in. Same idea: free, small groups, sorted by
+      grade level.
+    </p>
+    <p class="note">
+      Bookmark this page &mdash; the signup form will be posted here when it
+      opens, usually in late spring.
+    </p>
+
+    <!-- NEXT SUMMER: when the 2027 signup form is ready, delete the paragraph
+         below and put this in its place, with your form link:
+         <p class="center-cta"><a class="btn" href="YOUR-2027-FORM-LINK">Sign up for Summer 2027 &rarr;</a></p> -->
+    <p class="note quiet">Sign-ups for Summer 2027 are not open yet.</p>
+  </div>
+</section>
+
+<!-- =====================================================================
+     FEEDBACK SECTION
+
+     TO TURN ON THE FORM — one edit:
+
+       In Google Forms click Send, then the chain/link icon, and Copy.
+       You get a short link like  https://forms.gle/abcd1234
+       Below, replace  PASTE-YOUR-FORM-LINK-HERE  with it, keeping the
+       quotation marks around it.
+
+     That is all — the button then opens your form in a new tab.
+     ===================================================================== -->
+<section class="section" id="feedback">
+  <div class="wrap">
+    <div class="panel">
+      <h2>How did we do?</h2>
+      <p class="lead">
+        If your child joined us this summer, the girls would love to hear how it
+        went. It takes about two minutes, and you can skip any question.
+      </p>
+
+      <p class="center-cta">
+        <a class="btn btn-lg" href="PASTE-YOUR-FORM-LINK-HERE" target="_blank" rel="noopener">
+          Open the feedback&nbsp;form&nbsp;&rarr;
+        </a>
+      </p>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap center">
+    <p class="footer-mark"><span class="radical">&radic;</span>Rooted in Math</p>
+    <p class="note">
+      A free summer math program run by three sisters for the kids in our
+      neighborhood.
+    </p>
+    <!-- To change the contact address later, edit it in BOTH places on the
+         line below: once after "mailto:" and once as the visible text. -->
+    <p class="note">Questions? <a href="mailto:rootedinmathteam@gmail.com">rootedinmathteam@gmail.com</a></p>
+    <p class="note quiet">Summer 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>
